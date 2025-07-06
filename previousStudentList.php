@@ -42,6 +42,11 @@ if (isset($_GET['class_id'])) {
             </form>
 
         </div>
+
+        <br>
+        <b>
+            Previous Students in <span style="color: #007bff;"><?php echo $class_name; ?></span>
+        </b>
         <?php
         $slno = 0;
         $result = mysqli_query($conn, "SELECT * FROM `student` WHERE `class_name`='$class_name' and `action`='Inactive' ORDER BY `id` DESC");
@@ -69,9 +74,7 @@ if (isset($_GET['class_id'])) {
 
             <div class="classList">
                 <div class="container-ClassList">
-                    <b>
-                        Previous Students in <span style="color: #007bff;"><?php echo $class_name; ?></span>
-                    </b>
+
                     <b>
                         <h2 id="h1id01">Total <?php echo $class_name; ?> Students</h2>
                     </b>

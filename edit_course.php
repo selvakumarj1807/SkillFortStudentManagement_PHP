@@ -52,18 +52,11 @@ if (!isset($_SESSION['username'])) // If session is not set then redirect to Log
 
           </div>
           <div class="col-md-4">
-            <div class="input-wrap">
-              <label for="save">Image </label>
-              <input type="file" name="image" accept="image/jpeg" value="<?php echo $image; ?>">
-              <input class="file-path validate" type="hidden" placeholder="Choose your profile image">
-
-            </div>
+            
 
           </div>
           <br>
-          <br>
-          <br>
-
+      
           <button type="submit" class="btn btn-primary">Submit</button>
           <a href="course.php"><button type="button" class="btn btn-primary">Back</button></a>
 

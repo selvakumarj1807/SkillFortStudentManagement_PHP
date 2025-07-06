@@ -77,7 +77,7 @@ if (isset($_GET['class_id'])) {
                     </div>
 
                     <div class="table-responsive">
-                        <table class="table table-bordered table-striped">
+                        <table class="table table-bordered table-striped" id="bootstrapdatatable02">
                             <thead class="table-dark">
                                 <tr>
                                     <th>S.No</th>

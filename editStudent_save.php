@@ -24,7 +24,7 @@ $sql = "UPDATE `student` SET
     `description` = '$description'";
 
 // Set action based on conditions
-if (!empty($leave_date) && !empty($leave_reason)) {
+if (!empty($leave_date) || !empty($leave_reason)) {
     $sql .= ", `leave_date` = '$leave_date',
                `deleteReason` = '$leave_reason',
                `action` = 'Inactive'";

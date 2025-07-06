@@ -77,7 +77,7 @@ while ($row_result = mysqli_fetch_array($result)) {
 
                                 <div class="form-group">
                                     <label for="gmail">Gmail</label>
-                                    <input type="text" class="form-control" id="gmail" name="gmail" placeholder="Enter Gmail" required>
+                                    <input type="text" class="form-control" id="gmail" name="gmail" placeholder="Enter Gmail">
                                 </div>
 
                                 <div class="form-group">

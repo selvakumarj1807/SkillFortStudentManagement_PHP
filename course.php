@@ -46,17 +46,6 @@ if (!isset($_SESSION['username'])) // If session is not set then redirect to Log
                 <input class="form-control" id="ban" name="category" />
                 <br>
 
-
-
-                <div class="input-wrap">
-                  <label for="save">Images</label>
-                  <input type="file" name="image" accept="image/jpeg" required>
-                  <input class="file-path validate" type="hidden" placeholder="Choose your profile image">
-
-                </div>
-
-                <br>
-
                 <button type="submit" class="btn btn-primary">Submit</button>
 
 
@@ -84,7 +73,6 @@ if (!isset($_SESSION['username'])) // If session is not set then redirect to Log
                 <tr>
                   <th>Id</th>
                   <th>Course Name</th>
-                  <th>Image</th>
 
                   <th class="text-center">Actions</th>
 
@@ -107,7 +95,6 @@ if (!isset($_SESSION['username'])) // If session is not set then redirect to Log
                     <td><?php echo $slno; ?></td>
 
                     <td><?php echo $category; ?></td>
-                    <td><img class="img-responsive" width="40" height="55" src="Upload/<?php echo $image; ?>" /></td>
                     <td class="text-center">
                       <a href="edit_course.php?id=<?php echo $row_result['id']; ?>">Edit<i class="fa fa-edit" style="color:green"></i></a> &nbsp;&nbsp;&nbsp;
                       <a href="remove_course.php?id=<?php echo $row_result['id']; ?>" onclick="return confirm('Are you sure you want to delete this item?');">Remove<i class="fa fa-trash" aria-hidden="true" style="color:red"></i></a>&nbsp;&nbsp;&nbsp;

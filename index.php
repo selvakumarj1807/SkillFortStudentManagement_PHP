@@ -65,6 +65,7 @@ if (isset($_POST['login'])) {
   <!-- bootstrap wysihtml5 - text editor -->
   <link href="plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.min.css" rel="stylesheet" type="text/css" />
 
+  <link rel="icon" type="image/png" href="img/SkillfortAppLogo.png">
 
 </head>
 
