@@ -1,0 +1,341 @@
+body{
+	margin: 0px;
+	padding: 0px;
+	font-family: Georgia, "Times New Roman", Times, serif;
+}
+h1, h2, h3{
+	font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;	
+}
+
+ul.products {
+	padding: 0;
+	margin: 0;
+	max-width: 740px;
+	margin-left: auto;
+	margin-right: auto;
+}
+ul.products li {
+	display: inline-block;
+	max-width: 200px;
+	padding: 10px;
+	background-color: #FFFFFF;
+	margin: 10px;
+	border: 1px solid #EAEAEA;  
+	color: #3D3D3D;
+}
+ul.products li h3 {
+	margin: -10px -10px 10px -10px;
+	padding: 10px;
+	text-align: center;
+	background-color: #F5F5F5;
+	font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+	font-size: 1.1em;
+	color: #5A5A5A;
+}
+ul.products li fieldset {
+	border: none;
+	padding: 5px 5px 5px 0px;
+	margin: 0;
+}
+ul.products li fieldset label{
+	display:block;
+	margin-bottom: 4px;
+}
+ul.products li fieldset label span{
+	width: 80px;
+	float: left;
+}
+ul.products li fieldset label select{
+	min-width: 100px;
+}
+
+button, .button{
+	background-color: #39b3d7;
+	min-width: 100px;
+	border: none;
+	padding: 10px;
+	display: inline-block;
+	text-align: center;
+	cursor: pointer;
+	text-decoration: none;
+	color: #FFF;
+	min-height: 15px;
+	font: 12px/15px Arial, Helvetica, sans-serif;
+	text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.26);
+	border-radius: 3px;
+}
+button:hover, .button:hover{
+	background-color: #44C7ED;
+}
+
+.product-thumb{
+	text-align:center;
+}
+.product-desc {
+	font-style: italic;
+	font-size: 0.8em;
+	margin-bottom: 4px;
+	height: 40px;
+	overflow: hidden;
+	margin-top: 5px;
+}
+.ytp-cued-thumbnail-overlay-image {
+    background-size: cover;
+    -moz-background-size: cover;
+    -webkit-background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    width: 100%;
+    height: 100%;
+    position: absolute;
+}
+
+ul.shopping-cart{
+	position: fixed;
+	top: 100px;
+	right: 0;
+	background-color: #F9F9F9;
+	padding: 10px;
+	min-width: 250px;
+	list-style: none;
+	font-size: 0.8em;
+	border: 1px solid #F0F0F0;
+}
+ul.shopping-cart .cart-itm {
+	margin-bottom: 10px;
+	border-bottom: 1px solid #ddd;
+	padding-bottom: 8px;
+}
+ul.shopping-cart .cart-itm:last-child{
+	border-bottom: none;
+	margin-bottom: 0px;
+}
+ul.shopping-cart .cart-itm .remove-itm{
+	float: right;
+	font-size: 1.5em;
+}
+ul.shopping-cart .cart-itm .remove-itm a{
+	text-decoration:none;
+	color:#000;
+}
+.cart-total-text a{
+	float:right;
+}
+
+.cart-view-table-front{
+	font-size: 0.7em;
+	position: fixed;
+	right: 10px;
+	max-width: 350px;
+	font-family: Arial
+}
+.cart-view-table-front h3{
+	text-align: center;
+	padding: 0;
+	margin: 0px 0px 6px 0px;
+}
+.cart-view-table-front, .cart-view-table-back {
+	max-width: 700px;
+	background-color: #FFFFFF;
+	margin-left: auto;
+	margin-right: auto;
+	padding: 10px;
+	box-shadow: 1px 1px 15px rgba(0, 0, 0, 0.12);
+	border: 1px solid #E4E4E4;
+}
+.cart-view-table-front table th, .cart-view-table-back table th{
+	text-align: left;
+}
+.cart-view-table-front table thead, .cart-view-table-back table thead{
+	background-color: #9CCDFD;
+}
+.cart-view-table-front table tbody tr.even, .cart-view-table-back table tbody tr.even{
+	background-color: #F7F7F7;
+}
+.cart-view-table-front table tbody tr.odd, .cart-view-table-back table tbody tr.odd{
+	background-color: #EDEDED;
+}
+.cart-view-table-front button, .cart-view-table-front .button, .cart-view-table-back button, .cart-view-table-back .button{
+	margin: 10px 1px;
+	float: right;
+}
+
+
+.classList {
+  font-family: Arial, sans-serif;
+  margin: 20px;
+  background: #f4f4f4;
+}
+
+.container-ClassList {
+  max-width: 1000px;
+  margin: 0 auto;
+  background: white;
+  padding: 20px;
+  border-radius: 10px;
+}
+
+#h1id01 {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.summary {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 20px;
+}
+
+.summary-card {
+  background: teal;
+  color: white;
+  padding: 15px 30px;
+  border-radius: 10px;
+  text-align: center;
+}
+
+.filters {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+.filters input {
+  padding: 10px;
+  font-size: 16px;
+}
+
+.filters button {
+  padding: 10px;
+  background: blue;
+  color: white;
+  border: none;
+  cursor: pointer;
+}
+
+.card-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 15px;
+}
+
+@media(min-width: 600px) {
+  .filters {
+    flex-direction: row;
+    justify-content: space-between;
+  }
+  .card-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+.card {
+  background: white;
+  border: 1px solid #ddd;
+  border-radius: 10px;
+  padding: 15px;
+  text-align: center;
+  transition: 0.3s;
+}
+
+.card:hover {
+  box-shadow: 0 0 10px rgba(0,0,0,0.2);
+}
+
+.card .enquiry-id {
+  color: orange;
+  font-weight: bold;
+}
+
+.course-badge a {
+  text-decoration: none;
+  color: green; /* You can set your preferred color */
+  font-weight: bold;
+}
+
+.course-badge a:hover {
+  color: darkgreen;
+}
+
+.card-footer {
+  display: flex;
+  justify-content: space-between;
+  font-size: 14px;
+  margin-top: 25px;
+}
+
+.pagination {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  margin-top: 20px;
+  gap: 5px;
+}
+
+.pagination button {
+  padding: 5px 10px;
+  border: 1px solid #ccc;
+  background: #eee;
+  cursor: pointer;
+}
+
+.pagination button.active {
+  background: blue;
+  color: white;
+}
+
+.menu-container {
+  position: relative;
+  text-align: right;
+}
+
+.menu-btn {
+  background: none;
+  border: none;
+  font-size: 20px;
+  cursor: pointer;
+}
+
+.dropdown-menu {
+  position: absolute;
+  top: 25px;
+  right: 0;
+  background: white;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+  display: none;
+  flex-direction: column;
+  z-index: 1;
+  min-width: 100px;
+}
+
+.dropdown-menu button {
+  padding: 8px 12px;
+  background: white;
+  border: none;
+  text-align: left;
+  cursor: pointer;
+}
+
+.dropdown-menu button:hover {
+  background: #eee;
+}
+
+.menu-link {
+  padding: 8px 12px;
+  display: block;
+  background: white;
+  color: black;
+  text-decoration: none;
+  text-align: left;
+  cursor: pointer;
+}
+
+.menu-link:hover {
+  background: #eee;
+  color: blue;
+}
+
+
