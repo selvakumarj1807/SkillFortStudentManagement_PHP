@@ -94,7 +94,7 @@ while ($row_result = mysqli_fetch_array($result)) {
 
                                 <div class="form-group">
                                     <label for="referBy">Refer By</label>
-                                    <input type="text" class="form-control" id="referBy" name="referBy" value="<?php echo $referBy; ?>" placeholder="Enter Refer By" required>
+                                    <input type="text" class="form-control" id="referBy" name="referBy" value="<?php echo $referBy; ?>" placeholder="Enter Refer By" >
                                 </div>
 
                                 <div class="form-group">
@@ -140,7 +140,7 @@ while ($row_result = mysqli_fetch_array($result)) {
         // Date Picker
         $("#join_date").flatpickr({
             dateFormat: "Y-m-d",
-            defaultDate: new Date()
+            defaultDate: "<?php echo $join_date; ?>",
         });
 
         $("#leave_date").flatpickr({

@@ -103,7 +103,7 @@ if (isset($_GET['class_id'])) {
                                         <td>
                                             <input type="hidden" name="studentName[<?php echo $studentId; ?>]" value="<?php echo $studentName; ?>">
                                             <input type="hidden" name="mobile[<?php echo $studentId; ?>]" value="<?php echo $mobile; ?>">
-                                            <a href="tel:<?php echo $mobile; ?>"><?php echo $mobile; ?></a>
+                                            <a href="tel:+91<?php echo $mobile; ?>">+91 <?php echo $mobile; ?></a>
                                         </td>
                                         <td>
                                             <select name="status[<?php echo $studentId; ?>]" class="form-select">

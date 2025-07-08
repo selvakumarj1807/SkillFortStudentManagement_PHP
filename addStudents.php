@@ -87,7 +87,7 @@ while ($row_result = mysqli_fetch_array($result)) {
 
                                 <div class="form-group">
                                     <label for="referBy">Refer By</label>
-                                    <input type="text" class="form-control" id="referBy" name="referBy" placeholder="Enter Refer By" required>
+                                    <input type="text" class="form-control" id="referBy" name="referBy" placeholder="Enter Refer By" >
                                 </div>
 
                                 <div class="form-group">

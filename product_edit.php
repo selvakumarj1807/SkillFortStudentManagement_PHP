@@ -117,8 +117,7 @@ while ($row_result = mysqli_fetch_array($result)) {
     // Date Picker
     $("#start_date").flatpickr({
       dateFormat: "Y-m-d",
-      defaultDate: new Date()
-    });
+      defaultDate: "<?php echo $start_date; ?>",});
 
     $("#end_date").flatpickr({
       dateFormat: "Y-m-d",

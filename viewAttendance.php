@@ -149,7 +149,7 @@ $id = $_GET['id'] ?? ($_GET['class_id'] ?? '');
                             <td>{$slno}</td>
                             <td>" . date("d/m/Y", strtotime($row['date'])) . "</td>
                             <td>{$row['student_name']}</td>
-                            <td><a href='tel:{$row['mobile']}'>{$row['mobile']}</a></td>
+                            <td><a href='tel:+91{$row['mobile']}'>+91 {$row['mobile']}</a></td>
                             <td>{$row['status']}</td>
                           </tr>";
                         }
