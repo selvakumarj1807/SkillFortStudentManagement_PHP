@@ -206,6 +206,10 @@ function applyFilters() {
     const joinDate = joinDateDiv ? joinDateDiv.textContent.toLowerCase() : "";
     const leaveDate = leaveDateDiv ? leaveDateDiv.textContent.toLowerCase() : "";
 
+    const mobileDiv = card.querySelector(".callLink");
+    const mobile = mobileDiv ? mobileDiv.textContent.toLowerCase() : "";
+
+
     return (
       name.includes(term) ||
       enquiryId.includes(term) ||
@@ -214,7 +218,8 @@ function applyFilters() {
       startDate.includes(term) ||
       endDate.includes(term)||
       joinDate.includes(term) ||
-      leaveDate.includes(term)
+      leaveDate.includes(term)||
+      mobile.includes(term) 
     );
   });
 

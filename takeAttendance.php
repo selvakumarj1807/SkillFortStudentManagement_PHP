@@ -14,6 +14,17 @@ if (!isset($_SESSION['username'])) // If session is not set then redirect to Log
 
 
 <?php include('header.php') ?>
+<style>
+    .attendance-status {
+        transition: background-color 0.3s ease, color 0.3s ease;
+    }
+
+    .attendance-status.danger {
+        background-color: #dc3545 !important;
+        color: #ffffff !important;
+    }
+</style>
+
 <?php
 $today = date('Y-m-d');
 ?>
@@ -106,7 +117,7 @@ if (isset($_GET['class_id'])) {
                                             <a href="tel:+91<?php echo $mobile; ?>">+91 <?php echo $mobile; ?></a>
                                         </td>
                                         <td>
-                                            <select name="status[<?php echo $studentId; ?>]" class="form-select">
+                                            <select name="status[<?php echo $studentId; ?>]" class="form-select attendance-status">
                                                 <option value="Present" selected>Present</option>
                                                 <option value="Absent">Absent</option>
                                             </select>
@@ -118,9 +129,6 @@ if (isset($_GET['class_id'])) {
                     </div>
                     <button type="submit" class="btn btn-success">Submit Attendance</button>
                 </form>
-
-
-
             </div>
         </div>
 
@@ -149,5 +157,21 @@ if (isset($_GET['class_id'])) {
     }
 </script>
 
+<script>
+    document.querySelectorAll('.attendance-status').forEach(function(select) {
+        select.addEventListener('change', function() {
+            if (this.value === 'Absent') {
+                this.classList.add('danger');
+            } else {
+                this.classList.remove('danger');
+            }
+        });
+
+        // Initial check
+        if (select.value === 'Absent') {
+            select.classList.add('danger');
+        }
+    });
+</script>
 
 <?php include('footer.php') ?>

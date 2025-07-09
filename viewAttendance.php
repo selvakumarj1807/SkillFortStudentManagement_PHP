@@ -71,6 +71,16 @@ $id = $_GET['id'] ?? ($_GET['class_id'] ?? '');
     }
 </style>
 
+<style>
+    .status-absent {
+        background-color: #dc3545 !important;
+        /* Bootstrap danger color */
+        color: #ffffff !important;
+        font-weight: bold;
+    }
+</style>
+
+
 <div class="content-wrapper">
 
     <div class="d-flex flex-wrap justify-content-end gap-2 mb-3" style="margin: 30px;">
@@ -141,17 +151,18 @@ $id = $_GET['id'] ?? ($_GET['class_id'] ?? '');
 
                     $result = mysqli_query($conn, $query);
                     $slno = 0;
-
                     if (mysqli_num_rows($result) > 0) {
                         while ($row = mysqli_fetch_assoc($result)) {
                             $slno++;
+                            $statusClass = ($row['status'] === 'Absent') ? 'status-absent' : '';
+
                             echo "<tr>
-                            <td>{$slno}</td>
-                            <td>" . date("d/m/Y", strtotime($row['date'])) . "</td>
-                            <td>{$row['student_name']}</td>
-                            <td><a href='tel:+91{$row['mobile']}'>+91 {$row['mobile']}</a></td>
-                            <td>{$row['status']}</td>
-                          </tr>";
+        <td>{$slno}</td>
+        <td>" . date("d/m/Y", strtotime($row['date'])) . "</td>
+        <td>{$row['student_name']}</td>
+        <td><a href='tel:+91{$row['mobile']}'>+91 {$row['mobile']}</a></td>
+        <td class='$statusClass'>{$row['status']}</td>
+    </tr>";
                         }
                     } else {
                         echo "<tr><td colspan='5' class='text-center'>No attendance found.</td></tr>";
