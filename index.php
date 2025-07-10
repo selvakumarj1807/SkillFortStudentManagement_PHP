@@ -121,7 +121,7 @@ if (isset($_POST['login'])) {
   <br>
   <br>
   <div class="col-lg-12 text-center" style="position:fixed;bottom:20px;width:100%;">
-    Tamilinfotechnology | &copy 2022
+    SkillFort | &copy 2025
   </div>
   <!--/////////////////////////////////////////////////////////////////////////-->
 
