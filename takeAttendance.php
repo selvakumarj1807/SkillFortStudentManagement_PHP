@@ -93,8 +93,9 @@ if (isset($_GET['class_id'])) {
                                 <tr>
                                     <th>S.No</th>
                                     <th>Name</th>
-                                    <th>Mobile</th>
+
                                     <th>Status</th>
+                                    <th>Mobile</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -111,16 +112,18 @@ if (isset($_GET['class_id'])) {
                                     <tr>
                                         <td><?php echo $slno; ?></td>
                                         <td><?php echo $studentName; ?></td>
-                                        <td>
-                                            <input type="hidden" name="studentName[<?php echo $studentId; ?>]" value="<?php echo $studentName; ?>">
-                                            <input type="hidden" name="mobile[<?php echo $studentId; ?>]" value="<?php echo $mobile; ?>">
-                                            <a href="tel:+91<?php echo $mobile; ?>">+91 <?php echo $mobile; ?></a>
-                                        </td>
+
                                         <td>
                                             <select name="status[<?php echo $studentId; ?>]" class="form-select attendance-status">
                                                 <option value="Present" selected>Present</option>
                                                 <option value="Absent">Absent</option>
                                             </select>
+                                        </td>
+
+                                        <td>
+                                            <input type="hidden" name="studentName[<?php echo $studentId; ?>]" value="<?php echo $studentName; ?>">
+                                            <input type="hidden" name="mobile[<?php echo $studentId; ?>]" value="<?php echo $mobile; ?>">
+                                            <a href="tel:+91<?php echo $mobile; ?>">+91 <?php echo $mobile; ?></a>
                                         </td>
                                     </tr>
                                 <?php } ?>

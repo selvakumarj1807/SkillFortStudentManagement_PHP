@@ -126,8 +126,10 @@ $id = $_GET['id'] ?? ($_GET['class_id'] ?? '');
                         <th>S.No</th>
                         <th>Date</th>
                         <th>Student Name</th>
-                        <th>Mobile</th>
+                        
                         <th>Status</th>
+
+                        <th>Mobile</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -160,8 +162,10 @@ $id = $_GET['id'] ?? ($_GET['class_id'] ?? '');
         <td>{$slno}</td>
         <td>" . date("d/m/Y", strtotime($row['date'])) . "</td>
         <td>{$row['student_name']}</td>
-        <td><a href='tel:+91{$row['mobile']}'>+91 {$row['mobile']}</a></td>
+       
         <td class='$statusClass'>{$row['status']}</td>
+
+         <td><a href='tel:+91{$row['mobile']}'>+91 {$row['mobile']}</a></td>
     </tr>";
                         }
                     } else {
