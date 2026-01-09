@@ -49,7 +49,7 @@ if (!isset($_SESSION['username'])) // If session is not set then redirect to Log
   <link rel="stylesheet" href="https://cdn.datatables.net/1.10.25/css/dataTables.bootstrap.min.css">
 
   <link rel="icon" type="image/png" href="img/SkillfortAppLogo.png">
-  
+
   <style>
     .anyClass {
       height: 350px;
@@ -292,6 +292,13 @@ if (!isset($_SESSION['username'])) // If session is not set then redirect to Log
         flex: 1 1 100%;
       }
     }
+
+    @media (max-width: 768px) {
+      select.form-control {
+        height: 45px;
+        font-size: 16px;
+      }
+    }
   </style>
 
 </head>
@@ -384,6 +391,12 @@ if (!isset($_SESSION['username'])) // If session is not set then redirect to Log
                 </li>
               <?php } ?>
             </ul>
+          </li>
+
+          <li>
+            <a href="employee.php">
+              <i class="fa fa-users"></i> <span>Employee</span>
+            </a>
           </li>
 
           <li>
