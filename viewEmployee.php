@@ -58,17 +58,22 @@ if (!isset($_SESSION['username'])) // If session is not set then redirect to Log
                                 <div class="dropdown-menu">
                                     <!--<a href="#" class="menu-link edit-link" data-description="<?php echo htmlspecialchars($description); ?>" onclick="showDescription(this)">Stuedent Description</a> -->
                                     <a href="addEmployee.php?edit=<?= $row['id'] ?>" class="menu-link edit-link">Employee Details</a>
-                                    <a href="employeeDelete.php?id=<?= $row['id'] ?>" class="menu-link delete-link" onclick="return confirm('Are you sure you want to delete this employee?');">Delete Employee</a>
+                                    <a href="addEmployee.php?delete=<?= $row['id'] ?>"
+                                        class="btn btn-danger btn-sm"
+                                        onclick="return confirm('Are you sure you want to delete this employee?');">
+                                        Delete
+                                    </a>
+
                                 </div>
                             </div>
                             <h3 class="enquiry-id"><?= htmlspecialchars($row['employee_name']) ?></h3>
                             <h4 class="student-badge"><?= htmlspecialchars($row['role_name'] ?? 'N/A') ?></h4>
-                            
+
                             <div class="course-badge">
                                 <a class="callLink" href="#"><?= htmlspecialchars($row['mobile']) ?></a>
                             </div>
 
-                        
+
                         </div>
 
                     <?php

@@ -71,6 +71,24 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $error = "Database Error!";
     }
 }
+
+
+/* =========================
+   DELETE EMPLOYEE
+========================= */
+if (isset($_GET['delete'])) {
+    $delete_id = intval($_GET['delete']);
+
+    $deleteQuery = "DELETE FROM employees WHERE id = $delete_id";
+
+    if (mysqli_query($conn, $deleteQuery)) {
+        header("Location: employee.php?deleted=1");
+        exit();
+    } else {
+        $error = "Unable to delete employee!";
+    }
+}
+
 ?>
 
 <?php include('header.php') ?>
