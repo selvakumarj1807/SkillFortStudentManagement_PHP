@@ -21,6 +21,9 @@ $cat = mysqli_num_rows($row1);
 $row7 = mysqli_query($conn, "Select * from products");
 $product = mysqli_num_rows($row7);
 
+$row1 = mysqli_query($conn, "Select * from employees");
+$employees = mysqli_num_rows($row1);
+
 ?>
 <?php include('header.php') ?>
 <style>
@@ -44,6 +47,21 @@ $product = mysqli_num_rows($row7);
 
   <section class="content">
     <div class="row">
+
+      <div class="col-lg-3 col-xs-6">
+        <!- small box ->
+          <div class="small-box bg-blue">
+            <div class="inner">
+              <h4>Employees</h4>
+              <h4 style="color:white;text-align:center;font-size: 40px;"><?php echo $employees; ?></h4>
+              <h4>&nbsp;</h4>
+            </div>
+            <div class="icon">
+              <img src="img/team.png" width='60' height='60' />
+            </div>
+            <a href="employee.php" class="small-box-footer">View Employees <i class="fa fa-arrow-circle-right"></i></a>
+          </div>
+      </div>
 
       <div class="col-lg-3 col-xs-6">
         <!- small box ->
