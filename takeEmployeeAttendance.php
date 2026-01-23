@@ -8,68 +8,6 @@ if (!isset($_SESSION['username'])) {
 }
 
 $today = date('Y-m-d');
-$success = '';
-$error = '';
-
-/* =====================
-   SAVE / UPDATE ATTENDANCE
-===================== */
-if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-
-    $date = $_POST['date'];
-
-    foreach ($_POST['status'] as $emp_id => $status) {
-
-        $emp_id = intval($emp_id);
-
-        $employee_name = mysqli_real_escape_string($conn, $_POST['employee_name'][$emp_id]);
-        $role_name     = mysqli_real_escape_string($conn, $_POST['role_name'][$emp_id]);
-        $mobile        = mysqli_real_escape_string($conn, $_POST['mobile'][$emp_id]);
-        $reason        = mysqli_real_escape_string($conn, $_POST['reason'][$emp_id] ?? '');
-
-        // Mandatory reason check
-        if ($status === 'Absent' && empty($reason)) {
-            $error = "Absent reason missing for employee!";
-            break;
-        }
-
-        // 🔍 Check if attendance already exists
-        $check = mysqli_query($conn, "
-            SELECT id FROM employee_attendance 
-            WHERE employee_id='$emp_id' 
-            AND attendance_date='$date'
-        ");
-
-        if (mysqli_num_rows($check) > 0) {
-
-            // ✅ UPDATE existing attendance
-            mysqli_query($conn, "
-                UPDATE employee_attendance SET
-                    employee_name = '$employee_name',
-                    role_name     = '$role_name',
-                    mobile        = '$mobile',
-                    status        = '$status',
-                    reason        = '$reason'
-                WHERE employee_id = '$emp_id'
-                AND attendance_date = '$date'
-            ");
-        } else {
-
-            // ✅ INSERT new attendance
-            mysqli_query($conn, "
-                INSERT INTO employee_attendance
-                (employee_id, employee_name, role_name, mobile, attendance_date, status, reason)
-                VALUES
-                ('$emp_id','$employee_name','$role_name','$mobile','$date','$status','$reason')
-            ");
-        }
-    }
-
-    if (!$error) {
-        $success = "Attendance saved / updated successfully!";
-    }
-}
-
 ?>
 
 <?php include('header.php'); ?>
@@ -99,39 +37,20 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 </style>
 
 <div class="content-wrapper">
-    <div class="container-fluid">
-        <br>
+    <div class="container-fluid"><br>
 
         <div class="d-flex justify-content-between">
-            <b>Take Employee Attendance</b> <br><br>
+            <b>Take Employee Attendance</b>
             <a href="employee.php" class="btn btn-success btn-sm">Back</a>
-        </div>
-        <br>
+        </div><br>
 
-        <?php if ($success) { ?>
-            <div
-                class="alert alert-success"
-                id="successAlert"
-                role="alert"
-                onclick="closeAlert()"
-                style="cursor:pointer;">
-                <?= $success ?>
+        <div id="alertBox"></div>
 
-            </div>
-        <?php } ?>
-
-        <?php if ($error) { ?>
-            <div class="alert alert-danger"><?= $error ?></div>
-        <?php } ?>
-
-        <form method="POST" id="attendanceForm">
-
+        <form id="attendanceForm">
             <div style="max-width:250px">
                 <label>Select Date</label>
-                <input type="date" name="date" class="form-control" value="<?= $today ?>" required>
-            </div>
-
-            <br>
+                <input type="date" name="date" id="attendanceDate" class="form-control" value="<?= $today ?>" required>
+            </div><br>
 
             <div class="table-responsive">
                 <table class="table table-bordered table-striped">
@@ -147,12 +66,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                         <?php
                         $sl = 0;
                         $result = mysqli_query($conn, "
-    SELECT e.id, e.employee_name, e.mobile, r.role_name
+    SELECT e.id,e.employee_name,e.mobile,r.role_name
     FROM employees e
-    LEFT JOIN employee_roles r ON r.id = e.role_id
+    LEFT JOIN employee_roles r ON r.id=e.role_id
     ORDER BY e.id DESC
 ");
-
                         while ($row = mysqli_fetch_assoc($result)) {
                             $sl++;
                         ?>
@@ -175,12 +93,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                                     <input type="hidden" name="reason[<?= $row['id'] ?>]" id="reason-<?= $row['id'] ?>">
                                 </td>
 
-                                <td>
+                                <td style="display: flex; justify-content: center; align-items: center;">
                                     <select name="status[<?= $row['id'] ?>]"
                                         class="form-control attendance-status"
-                                        data-emp="<?= $row['id'] ?>">
+                                        data-emp="<?= $row['id'] ?>"
+                                        style="width:150px">
                                         <option value="Present">Present</option>
-                                        <option value="Absent">Absent</option>
+                                        <option value="Absent">Absent (Full)</option>
+                                        <option value="Absent Morning">Absent Morning</option>
+                                        <option value="Absent Evening">Absent Evening</option>
                                     </select>
                                 </td>
                             </tr>
@@ -190,32 +111,24 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 </table>
             </div>
 
-            <button class="btn btn-success">Submit Attendance</button>
+            <button type="submit" class="btn btn-success">Submit Attendance</button>
         </form>
     </div>
 </div>
 
-<!-- =====================
-     ABSENT REASON MODAL
-===================== -->
+<!-- Reason Modal -->
 <div class="modal fade" id="reasonModal">
     <div class="modal-dialog">
         <div class="modal-content">
-
             <div class="modal-header bg-danger">
-                <button type="button" class="close" data-dismiss="modal">&times;</button>
                 <h4 class="modal-title">Absent Reason</h4>
             </div>
-
             <div class="modal-body">
-                <textarea id="reasonText" class="form-control" rows="4"
-                    placeholder="Enter reason for absence"></textarea>
+                <textarea id="reasonText" class="form-control" rows="4"></textarea>
             </div>
-
             <div class="modal-footer">
-                <button type="button" class="btn btn-danger" id="saveReason">Save Reason</button>
+                <button type="button" class="btn btn-danger" id="saveReason">Save</button>
             </div>
-
         </div>
     </div>
 </div>
@@ -223,55 +136,122 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 <?php include('footer.php'); ?>
 
 <script>
-    let currentEmp = null;
+    let activeEmp = null;
 
-    function toggleDetails(id) {
-        const el = document.getElementById('details-' + id);
-        el.style.display = el.style.display === 'block' ? 'none' : 'block';
-    }
+    /* Attendance Change */
+    document.querySelectorAll('.attendance-status').forEach(select => {
+        select.addEventListener('change', function() {
+            const empId = this.dataset.emp;
+            const val = this.value;
 
-    document.querySelectorAll('.attendance-status').forEach(sel => {
-        sel.addEventListener('change', function() {
-
-            currentEmp = this.dataset.emp;
-
-            if (this.value === 'Absent') {
+            if (val.includes('Absent')) {
+                activeEmp = empId;
+                document.getElementById('reasonText').value =
+                    document.getElementById('reason-' + empId).value;
                 $('#reasonModal').modal('show');
-                document.getElementById('reasonText').value = '';
                 this.classList.add('danger');
             } else {
-                document.getElementById('reason-' + currentEmp).value = '';
+                // ✅ FIX: clear only THIS employee reason
+                document.getElementById('reason-' + empId).value = '';
                 this.classList.remove('danger');
             }
         });
     });
 
-    document.getElementById('saveReason').addEventListener('click', function() {
-
+    /* Save Reason */
+    document.getElementById('saveReason').onclick = function() {
         const reason = document.getElementById('reasonText').value.trim();
-
         if (reason === '') {
-            alert('Reason is required!');
+            alert('Reason required');
             return;
         }
-
-        document.getElementById('reason-' + currentEmp).value = reason;
+        document.getElementById('reason-' + activeEmp).value = reason;
         $('#reasonModal').modal('hide');
+    };
+
+    /* AJAX SUBMIT */
+
+    document.getElementById('attendanceForm').addEventListener('submit', function(e) {
+        e.preventDefault();
+
+        fetch('employeeAttendance_save.php', {
+                method: 'POST',
+                body: new FormData(this)
+            })
+            .then(res => res.json())
+            .then(data => {
+
+                const alertBox = document.getElementById('alertBox');
+
+                alertBox.innerHTML = `
+            <div class="alert alert-${data.status}" id="autoAlert">
+                ${data.message}
+            </div>
+        `;
+
+                /* ✅ AUTO REMOVE AFTER 5 SECONDS */
+                setTimeout(() => {
+                    const alert = document.getElementById('autoAlert');
+                    if (alert) {
+                        alert.classList.remove('show');
+                        alert.style.opacity = '0';
+                        setTimeout(() => alert.remove(), 300);
+                    }
+                }, 5000);
+            })
+            .catch(() => {
+                alert('Server error. Try again.');
+            });
     });
+
+
+
+    function toggleDetails(id) {
+        const el = document.getElementById('details-' + id);
+        el.style.display = el.style.display === 'block' ? 'none' : 'block';
+    }
 </script>
 
 <script>
-    function closeAlert(e) {
-        if (e) e.stopPropagation();
-        const alertBox = document.getElementById('successAlert');
-        if (alertBox) {
-            alertBox.classList.remove('show');
-            setTimeout(() => alertBox.remove(), 300);
-        }
+    function loadAttendanceByDate(date) {
+
+        fetch('getAttendanceByDate.php?date=' + date)
+            .then(res => res.json())
+            .then(data => {
+
+                document.querySelectorAll('.attendance-status').forEach(select => {
+
+                    const empId = select.dataset.emp;
+                    const reasonInput = document.getElementById('reason-' + empId);
+
+                    if (data[empId]) {
+
+                        select.value = data[empId].status;
+                        reasonInput.value = data[empId].reason ?? '';
+
+                        if (data[empId].status.includes('Absent')) {
+                            select.classList.add('danger');
+                        } else {
+                            select.classList.remove('danger');
+                        }
+
+                    } else {
+                        select.value = 'Present';
+                        reasonInput.value = '';
+                        select.classList.remove('danger');
+                    }
+                });
+            });
     }
 
-    // Auto close after 5 seconds (optional)
-    setTimeout(() => {
-        closeAlert();
-    }, 5000);
+    /* Load attendance when date changes */
+    document.getElementById('attendanceDate').addEventListener('change', function() {
+        loadAttendanceByDate(this.value);
+    });
+
+    /* ✅ AUTO LOAD TODAY ON PAGE LOAD */
+    document.addEventListener('DOMContentLoaded', function() {
+        const today = document.getElementById('attendanceDate').value;
+        loadAttendanceByDate(today);
+    });
 </script>
