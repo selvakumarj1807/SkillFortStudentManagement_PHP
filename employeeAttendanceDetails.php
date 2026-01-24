@@ -225,7 +225,6 @@ if (mysqli_num_rows($result) > 0) {
 
         $totalWorkingDays =
             $present
-            + $fullAbsent
             + ($morningAbs * 0.5)
             + ($eveningAbs * 0.5);
 ?>

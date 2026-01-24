@@ -12,7 +12,9 @@ fputcsv($output, [
     'Role',
     'Status',
     'Reason',
-    'Mobile'
+    'Mobile',
+    'morning_status',
+    'evening_status'
 ]);
 
 $where = "WHERE 1=1";
@@ -25,7 +27,7 @@ if (!empty($_GET['date'])) {
 
 $query = "
 SELECT attendance_date, employee_name, role_name,
-       status, reason, mobile
+       status, reason, mobile, morning_status, evening_status
 FROM employee_attendance
 $where
 ORDER BY attendance_date DESC
