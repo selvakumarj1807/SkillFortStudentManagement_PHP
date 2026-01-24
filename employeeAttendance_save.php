@@ -40,6 +40,7 @@ mysqli_query($conn,"
     mobile='$mobile',
     morning_status='$morning',
     evening_status='$evening',
+    status='$status',
     reason='$reason'
     WHERE employee_id='$emp_id' AND attendance_date='$date'
 ");
@@ -47,10 +48,10 @@ mysqli_query($conn,"
 mysqli_query($conn,"
     INSERT INTO employee_attendance
     (employee_id,employee_name,role_name,mobile,attendance_date,
-     morning_status,evening_status,reason)
+     morning_status,evening_status,reason, status)
     VALUES
     ('$emp_id','$employee_name','$role_name','$mobile','$date',
-     '$morning','$evening','$reason')
+     '$morning','$evening','$reason','$status')
 ");
 }
 }

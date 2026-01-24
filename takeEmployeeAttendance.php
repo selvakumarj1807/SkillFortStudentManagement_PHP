@@ -2,7 +2,7 @@
 session_start();
 require 'db.php';
 
-if (!isset($_SESSION['username'])) {
+if (!isset($_SESSION['username']) || $_SESSION['username'] !== 'superadmin')  {
     header("Location:index.php");
     exit();
 }

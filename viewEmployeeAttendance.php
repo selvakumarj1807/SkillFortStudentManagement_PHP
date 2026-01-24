@@ -35,6 +35,17 @@ $today = date('Y-m-d');
         font-weight: bold;
     }
 
+    .emp-name {
+        cursor: pointer;
+        color: #0d6efd;
+        font-weight: 600;
+    }
+
+    .emp-details {
+        display: none;
+        font-size: 13px;
+    }
+
     @media (max-width: 768px) {
 
         .btn,
@@ -92,10 +103,10 @@ $today = date('Y-m-d');
                         <th>S.No</th>
                         <th>Date</th>
                         <th>Employee</th>
-                        <th>Role</th>
+                        
                         <th>Status</th>
                         <th>Reason</th>
-                        <th>Mobile</th>
+                        
                     </tr>
                 </thead>
                 <tbody>
@@ -114,7 +125,7 @@ $today = date('Y-m-d');
 
                     $query = "
 SELECT employee_name, role_name, mobile,
-       attendance_date, status, reason
+       attendance_date, status, reason, employee_id, id
 FROM employee_attendance
 $where
 ORDER BY attendance_date DESC
@@ -126,18 +137,26 @@ ORDER BY attendance_date DESC
                     if (mysqli_num_rows($result) > 0) {
                         while ($row = mysqli_fetch_assoc($result)) {
                             $sl++;
-                            $statusClass = ($row['status'] === 'Absent') ? 'status-absent' : '';
+                            $statusClass = ($row['status'] === 'Present') ? '' : 'status-absent';
                     ?>
                             <tr>
                                 <td><?= $sl ?></td>
                                 <td><?= date('d/m/Y', strtotime($row['attendance_date'])) ?></td>
-                                <td><?= htmlspecialchars($row['employee_name']) ?></td>
-                                <td><?= htmlspecialchars($row['role_name']) ?></td>
+                                <td>
+                                    <div class="emp-name" onclick="toggleDetails(<?= $row['id'] ?>)">
+                                        <?= htmlspecialchars($row['employee_name']) ?>
+                                    </div>
+
+                                    <div class="emp-details" id="details-<?= $row['id'] ?>">
+                                        Role: <?= htmlspecialchars($row['role_name']) ?><br>
+                                        Mobile: <?= htmlspecialchars($row['mobile']) ?>
+                                    </div>
+
+                                </td>
+                                
                                 <td class="<?= $statusClass ?>"><?= $row['status'] ?></td>
                                 <td><?= $row['reason'] ?: '-' ?></td>
-                                <td>
-                                    <a href="tel:+91<?= $row['mobile'] ?>">+91 <?= $row['mobile'] ?></a>
-                                </td>
+                                
                             </tr>
                     <?php
                         }
@@ -172,6 +191,11 @@ ORDER BY attendance_date DESC
                     }
                 });
             });
+
+            function toggleDetails(id) {
+                const el = document.getElementById('details-' + id);
+                el.style.display = el.style.display === 'block' ? 'none' : 'block';
+            }
         </script>
 
         <?php include('footer.php'); ?>
