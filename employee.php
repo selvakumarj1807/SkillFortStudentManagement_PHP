@@ -20,12 +20,17 @@ if (!isset($_SESSION['username'])) // If session is not set then redirect to Log
         <h2 style="text-align:center;">Employees</h2>
         <br>
         <div class="tile-container">
-            <a href="addRole.php">
-                <div class="tile"> Add Role </div>
-            </a>
-            <a href="addEmployee.php">
-                <div class="tile"> Add Employee </div>
-            </a>
+            <?php if (!empty($_SESSION['username']) && $_SESSION['username'] === 'superadmin'): ?>
+                <a href="addRole.php">
+                    <div class="tile"> Add Role </div>
+                </a>
+            <?php endif; ?>
+
+            <?php if (!empty($_SESSION['username']) && $_SESSION['username'] === 'superadmin'): ?>
+                <a href="addEmployee.php">
+                    <div class="tile"> Add Employee </div>
+                </a>
+            <?php endif; ?>
             <a href="viewEmployee.php">
                 <div class="tile"> View Employee </div>
             </a>

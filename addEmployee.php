@@ -44,51 +44,141 @@ if (isset($_GET['edit'])) {
 ========================= */
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
-    $employeeName = mysqli_real_escape_string($conn, $_POST['employeeName']);
-    $mobile       = mysqli_real_escape_string($conn, $_POST['mobile']);
-    $role_id      = intval($_POST['role_id']);
-    $join_date    = $_POST['join_date'];
+    $employeeName = mysqli_real_escape_string(
+        $conn,
+        $_POST['employeeName']
+    );
 
+    $mobile = mysqli_real_escape_string(
+        $conn,
+        $_POST['mobile']
+    );
+
+    $role_id = intval($_POST['role_id']);
+    $join_date = $_POST['join_date'];
+
+    /* =========================
+       UPDATE EMPLOYEE
+    ========================= */
     if (!empty($_POST['edit_id'])) {
-        // UPDATE
+
         $edit_id = intval($_POST['edit_id']);
-        $sql = "UPDATE employees SET 
-                    employee_name='$employeeName',
-                    mobile='$mobile',
-                    role_id='$role_id',
-                    join_date='$join_date'
-                WHERE id=$edit_id";
-    } else {
-        // INSERT
-        $sql = "INSERT INTO employees (employee_name, mobile, role_id, join_date)
-                VALUES ('$employeeName', '$mobile', '$role_id', '$join_date')";
+
+        $sql = "
+            UPDATE employees
+            SET
+                employee_name='$employeeName',
+                mobile='$mobile',
+                role_id='$role_id',
+                join_date='$join_date'
+            WHERE id='$edit_id'
+        ";
+
+        if (mysqli_query($conn, $sql)) {
+
+            // Update login details
+            mysqli_query(
+                $conn,
+                "UPDATE admin
+                 SET
+                    username='$employeeName',
+                    password='$mobile'
+                 WHERE employee_id='$edit_id'"
+            );
+
+            header("Location: employee.php?updated=1");
+            exit();
+        } else {
+            $error = "Unable to update employee.";
+        }
     }
 
-    if (mysqli_query($conn, $sql)) {
-        header("Location: employee.php?success=1");
-        exit();
-    } else {
-        $error = "Database Error!";
+    /* =========================
+       INSERT EMPLOYEE
+    ========================= */ else {
+
+        $sql = "
+            INSERT INTO employees
+            (
+                employee_name,
+                mobile,
+                role_id,
+                join_date
+            )
+            VALUES
+            (
+                '$employeeName',
+                '$mobile',
+                '$role_id',
+                '$join_date'
+            )
+        ";
+
+        if (mysqli_query($conn, $sql)) {
+
+            $employee_id = mysqli_insert_id($conn);
+
+            // Check existing login
+            $checkAdmin = mysqli_query(
+                $conn,
+                "SELECT id
+                 FROM admin
+                 WHERE employee_id='$employee_id'"
+            );
+
+            if (mysqli_num_rows($checkAdmin) == 0) {
+
+                mysqli_query(
+                    $conn,
+                    "INSERT INTO admin
+                    (
+                        employee_id,
+                        username,
+                        password
+                    )
+                    VALUES
+                    (
+                        '$employee_id',
+                        '$employeeName',
+                        '$mobile'
+                    )"
+                );
+            }
+
+            header("Location: employee.php?success=1");
+            exit();
+        } else {
+            $error = "Unable to add employee.";
+        }
     }
 }
-
 
 /* =========================
    DELETE EMPLOYEE
 ========================= */
 if (isset($_GET['delete'])) {
+
     $delete_id = intval($_GET['delete']);
 
-    $deleteQuery = "DELETE FROM employees WHERE id = $delete_id";
+    mysqli_query(
+        $conn,
+        "DELETE FROM admin
+         WHERE employee_id='$delete_id'"
+    );
 
-    if (mysqli_query($conn, $deleteQuery)) {
+    if (
+        mysqli_query(
+            $conn,
+            "DELETE FROM employees
+             WHERE id='$delete_id'"
+        )
+    ) {
         header("Location: employee.php?deleted=1");
         exit();
     } else {
         $error = "Unable to delete employee!";
     }
 }
-
 ?>
 
 <?php include('header.php') ?>

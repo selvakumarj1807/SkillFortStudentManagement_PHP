@@ -237,7 +237,7 @@ function render() {
   enquiryCount.textContent = filteredCards.length;
 
   if (paginated.length === 0) {
-    enquiryList.innerHTML = "<p>No enquiries found.</p>";
+    enquiryList.innerHTML = "<p>No data found.</p>";
     pagination.innerHTML = "";
     return;
   }

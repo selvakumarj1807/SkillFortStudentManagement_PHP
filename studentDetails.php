@@ -61,6 +61,14 @@ if (!isset($_SESSION['username'])) // If session is not set then redirect to Log
                     <a href="viewAttendance.php?class_name=<?php echo urlencode($class_name); ?>&id=<?php echo $item_id; ?>">
                         <div class="tile"> View Attendance</div>
                     </a>
+
+                    <a href="addTask.php?id=<?php echo $item_id; ?>">
+                        <div class="tile"> Add Task</div>
+                    </a>
+
+                    <a href="viewTask.php?class_name=<?php echo urlencode($class_name); ?>&id=<?php echo $item_id; ?>">
+                        <div class="tile"> View Task</div>
+                    </a>
                 </div>
             </div>
 
